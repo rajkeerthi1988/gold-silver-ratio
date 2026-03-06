@@ -1,24 +1,22 @@
-const goldPrice = 2100
-const silverPrice = 25
+async function getPrices(){
 
-document.getElementById("gold").innerHTML = "$" + goldPrice
-document.getElementById("silver").innerHTML = "$" + silverPrice
+let goldResponse = await fetch("https://api.gold-api.com/price/XAU")
+let goldData = await goldResponse.json()
 
-let ratio = goldPrice / silverPrice
+let silverResponse = await fetch("https://api.gold-api.com/price/XAG")
+let silverData = await silverResponse.json()
 
-document.getElementById("ratio").innerHTML = ratio.toFixed(2)
+let gold = goldData.price
+let silver = silverData.price
 
-const ctx = document.getElementById('ratioChart')
+document.getElementById("gold").innerHTML = "$" + gold
+document.getElementById("silver").innerHTML = "$" + silver
 
-new Chart(ctx,{
-type:'line',
+let ratio = gold / silver
 
-data:{
-labels:["Jan","Feb","Mar","Apr","May","Jun"],
-datasets:[{
-label:"Gold Silver Ratio",
-data:[78,80,82,79,85,84]
-}]
+document.getElementById("ratio").innerHTML =
+ratio.toFixed(2)
+
 }
 
-})
+getPrices()
