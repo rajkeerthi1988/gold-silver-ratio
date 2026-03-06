@@ -2,24 +2,33 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Gold Silver Ratio Calculator</title>
+<title>Gold Silver Ratio Tracker</title>
 <link rel="stylesheet" href="style.css">
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
 </head>
 
 <body>
 
-<h1>Gold Silver Ratio Calculator</h1>
+<h1>Gold Silver Ratio Tracker</h1>
 
-<div class="calculator">
+<div class="dashboard">
 
-<input id="gold" placeholder="Gold Price">
-<input id="silver" placeholder="Silver Price">
+<div class="card">
+<h3>Gold Price</h3>
+<p id="gold">Loading...</p>
+</div>
 
-<button onclick="calculate()">Calculate Ratio</button>
+<div class="card">
+<h3>Silver Price</h3>
+<p id="silver">Loading...</p>
+</div>
 
-<h2 id="result"></h2>
+<div class="card highlight">
+<h3>Gold-Silver Ratio</h3>
+<p id="ratio">Loading...</p>
+</div>
 
 </div>
 
