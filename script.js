@@ -1,27 +1,23 @@
-function calculate(){
+const goldPrice = 2100
+const silverPrice = 25
 
-let gold = document.getElementById("gold").value
-let silver = document.getElementById("silver").value
+document.getElementById("gold").innerHTML = "$" + goldPrice
+document.getElementById("silver").innerHTML = "$" + silverPrice
 
-let ratio = gold / silver
+let ratio = goldPrice / silverPrice
 
-document.getElementById("result").innerHTML =
-"Gold-Silver Ratio: " + ratio.toFixed(2)
+document.getElementById("ratio").innerHTML = ratio.toFixed(2)
 
-}
-
-
-const ctx = document.getElementById("ratioChart")
+const ctx = document.getElementById('ratioChart')
 
 new Chart(ctx,{
-
-type:"line",
+type:'line',
 
 data:{
-labels:["Jan","Feb","Mar","Apr","May"],
+labels:["Jan","Feb","Mar","Apr","May","Jun"],
 datasets:[{
 label:"Gold Silver Ratio",
-data:[78,82,80,85,84]
+data:[78,80,82,79,85,84]
 }]
 }
 
