@@ -29,7 +29,7 @@ console.log("API error:", error);
 }
 
 }
-}
+
 
 function updateSignal(ratio){
 
@@ -169,6 +169,7 @@ updateGauge(ratio);
 updateTime();
 
 setInterval(getPrices,60000);
+
 
 
 
