@@ -24,7 +24,7 @@ updateStrategy(ratio);
 updateChart(ratio);
 updateGauge(ratio);
 updateSentiment(ratio);  
-updatePerformance(gold, silver)
+updatePerformance(gold, silver);
 updateTime();
 
 }catch(error){
@@ -259,6 +259,7 @@ createChart();
 getPrices();
 
 setInterval(getPrices,60000);
+
 
 
 
