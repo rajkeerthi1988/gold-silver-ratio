@@ -86,3 +86,18 @@ box-shadow:0 10px 25px rgba(0,0,0,0.08);
 display:inline-block;
 width:300px;
 }
+
+
+.explanation{
+max-width:800px;
+margin:40px auto;
+background:white;
+padding:25px;
+border-radius:12px;
+box-shadow:0 8px 20px rgba(0,0,0,0.08);
+line-height:1.6;
+}
+
+.explanation h2{
+margin-bottom:10px;
+}
