@@ -21,6 +21,8 @@ document.getElementById("ratio").innerText = ratio.toFixed(2);
 updateSignal(ratio);
 updateStrategy(ratio);
 updateChart(ratio);
+updateGauge(ratio);
+updateTime();
 
 }catch(error){
 
@@ -157,10 +159,9 @@ document.getElementById("lastUpdated").innerText =
 
 createChart();
 getPrices();
-updateGauge(ratio);
-updateTime();
 
 setInterval(getPrices,60000);
+
 
 
 
