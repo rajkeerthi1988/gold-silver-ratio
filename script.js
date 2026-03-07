@@ -6,16 +6,13 @@ async function getPrices(){
 
 try{
 
-const goldRes = await fetch("https://api.gold-api.com/price/XAU");
-const silverRes = await fetch("https://api.gold-api.com/price/XAG");
+const res = await fetch("https://api.metals.live/v1/spot");
+const data = await res.json();
 
-const goldData = await goldRes.json();
-const silverData = await silverRes.json();
+let gold = data.find(m => m.gold).gold;
+let silver = data.find(m => m.silver).silver;
 
-const gold = goldData.price;
-const silver = silverData.price;
-
-const ratio = gold / silver;
+let ratio = gold / silver;
 
 document.getElementById("goldPrice").innerText = "$" + gold.toFixed(2);
 document.getElementById("silverPrice").innerText = "$" + silver.toFixed(2);
@@ -24,9 +21,9 @@ document.getElementById("ratio").innerText = ratio.toFixed(2);
 updateSignal(ratio);
 updateChart(ratio);
 
-}catch(err){
+}catch(error){
 
-console.log(err);
+console.log("API error:",error);
 
 }
 
@@ -105,3 +102,4 @@ createChart();
 getPrices();
 
 setInterval(getPrices,60000);
+
