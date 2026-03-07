@@ -23,6 +23,7 @@ updateStrategy(ratio);
 updateChart(ratio);
 updateGauge(ratio);
 updateSentiment(ratio);  
+updateGauge(ratio);
 updateTime();
 
 }catch(error){
@@ -222,10 +223,37 @@ document.getElementById("sentimentText").innerText =
 
 }
 
+function updateSignal(ratio){
+
+let signal = "";
+let color = "";
+
+if(ratio > 80){
+signal = "Silver Looks Undervalued";
+color = "green";
+}
+
+else if(ratio < 60){
+signal = "Gold Looks Undervalued";
+color = "gold";
+}
+
+else{
+signal = "Neutral Zone";
+color = "gray";
+}
+
+const el = document.getElementById("ratioSignal");
+el.innerText = signal + " (Ratio: " + ratio.toFixed(2) + ")";
+el.style.color = color;
+
+}
+
 createChart();
 getPrices();
 
 setInterval(getPrices,60000);
+
 
 
 
