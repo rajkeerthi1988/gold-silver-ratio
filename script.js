@@ -53,9 +53,9 @@ document.getElementById("signalText").innerText = signal;
 
 function createChart(){
 
-const ctx=document.getElementById("ratioChart");
+const ctx = document.getElementById("ratioChart");
 
-chart=new Chart(ctx,{
+chart = new Chart(ctx,{
 
 type:"line",
 
@@ -64,12 +64,35 @@ labels:labels,
 datasets:[{
 label:"Gold Silver Ratio",
 data:dataPoints,
-borderWidth:2
+borderWidth:3,
+tension:0.4,
+pointRadius:3,
+fill:false
 }]
 },
 
 options:{
-responsive:true
+responsive:true,
+
+animation:{
+duration:800
+},
+
+plugins:{
+legend:{
+display:true
+},
+tooltip:{
+enabled:true
+}
+},
+
+scales:{
+y:{
+beginAtZero:false
+}
+}
+
 }
 
 });
@@ -161,6 +184,7 @@ createChart();
 getPrices();
 
 setInterval(getPrices,60000);
+
 
 
 
