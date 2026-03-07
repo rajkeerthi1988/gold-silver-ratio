@@ -168,14 +168,15 @@ plugins:{
 title:{
 display:true,
 text:"Live Gold Silver Ratio"
+},
+legend:{
+display:false
 }
-legend:{display:false}
 }
 }
 });
 
 }
-
 function updateTime(){
 
 let now = new Date();
@@ -221,6 +222,7 @@ createChart();
 getPrices();
 
 setInterval(getPrices,60000);
+
 
 
 
