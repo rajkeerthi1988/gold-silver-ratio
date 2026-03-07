@@ -157,7 +157,11 @@ new Chart(ctx,{
 type:'doughnut',
 data:{
 datasets:[{
-data:[ratio,100-ratio]
+data:[ratio,120-ratio],
+backgroundColor:[
+"#ffd700",
+"#eeeeee"
+]
 }]
 },
 options:{
@@ -222,6 +226,7 @@ createChart();
 getPrices();
 
 setInterval(getPrices,60000);
+
 
 
 
