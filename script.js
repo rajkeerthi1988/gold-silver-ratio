@@ -36,24 +36,6 @@ console.log("API error:", error);
 }
 
 
-function updateSignal(ratio){
-
-let signal="";
-
-if(ratio > 80){
-signal="Silver undervalued";
-}
-else if(ratio < 60){
-signal="Gold undervalued";
-}
-else{
-signal="Neutral";
-}
-
-document.getElementById("signalText").innerText = signal;
-
-}
-
 function createChart(){
 
 const ctx = document.getElementById("ratioChart");
@@ -277,6 +259,7 @@ createChart();
 getPrices();
 
 setInterval(getPrices,60000);
+
 
 
 
