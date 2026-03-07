@@ -6,7 +6,7 @@ async function getPrices(){
 
 try{
 
-const res = await fetch("https://data-asg.goldprice.org/dbXRates/USD");
+const res = await fetch("https://api.metals.live/v1/spot");
 const data = await res.json();
 
 let gold = data.items[0].xauPrice;
@@ -226,6 +226,7 @@ createChart();
 getPrices();
 
 setInterval(getPrices,60000);
+
 
 
 
