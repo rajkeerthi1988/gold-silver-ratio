@@ -76,7 +76,7 @@ text.style.color = color;
 }
 
 getPrices()
-
+updateSignal(ratio)
 setInterval(getPrices,5000)
 
 <script src="https://s3.tradingview.com/tv.js"></script>
@@ -97,6 +97,7 @@ new TradingView.widget({
   "allow_symbol_change": false
 });
 </script>
+
 
 
 
