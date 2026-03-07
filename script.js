@@ -33,27 +33,19 @@ console.log("API error:", error);
 
 function updateSignal(ratio){
 
-document.getElementById("ratioValue").innerText = ratio.toFixed(2);
-
 let signal="";
 
 if(ratio > 80){
-
-signal="Silver may be undervalued";
-
+signal="Silver undervalued";
 }
 else if(ratio < 60){
-
-signal="Gold may be undervalued";
-
+signal="Gold undervalued";
 }
 else{
-
-signal="Neutral zone";
-
+signal="Neutral";
 }
 
-document.getElementById("signalText").innerText=signal;
+document.getElementById("signalText").innerText = signal;
 
 }
 
@@ -169,6 +161,7 @@ updateGauge(ratio);
 updateTime();
 
 setInterval(getPrices,60000);
+
 
 
 
