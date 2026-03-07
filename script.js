@@ -22,6 +22,7 @@ updateSignal(ratio);
 updateStrategy(ratio);
 updateChart(ratio);
 updateGauge(ratio);
+updateSentiment(ratio);  
 updateTime();
 
 }catch(error){
@@ -184,10 +185,43 @@ document.getElementById("lastUpdated").innerText =
 
 }
 
+function updateSentiment(ratio){
+
+let sentiment="";
+let color="";
+
+if(ratio > 80){
+
+sentiment="Bullish for Silver";
+color="green";
+
+}
+else if(ratio < 60){
+
+sentiment="Bullish for Gold";
+color="goldenrod";
+
+}
+else{
+
+sentiment="Neutral Market";
+color="gray";
+
+}
+
+document.getElementById("sentimentValue").innerText = sentiment;
+document.getElementById("sentimentValue").style.color = color;
+
+document.getElementById("sentimentText").innerText =
+"Based on the current Gold-Silver Ratio.";
+
+}
+
 createChart();
 getPrices();
 
 setInterval(getPrices,60000);
+
 
 
 
