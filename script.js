@@ -1,3 +1,24 @@
+let labels = []
+let dataPoints = []
+
+const ctx = document.getElementById("ratioChart").getContext("2d")
+
+const ratioChart = new Chart(ctx,{
+type:'line',
+data:{
+labels:labels,
+datasets:[{
+label:"Gold Silver Ratio",
+data:dataPoints,
+borderWidth:2,
+fill:false
+}]
+},
+options:{
+responsive:true
+}
+})
+
 async function getPrices(){
 
 try{
@@ -22,32 +43,11 @@ updateChart(ratio)
 
 }catch(error){
 
-console.log("Price fetch failed")
+console.log("Price fetch failed", error)
 
 }
 
 }
-
-getPrices()
-
-setInterval(getPrices,60000)
-
-let labels = []
-let dataPoints = []
-
-const ctx = document.getElementById("ratioChart")
-
-const ratioChart = new Chart(ctx,{
-type:'line',
-data:{
-labels:labels,
-datasets:[{
-label:"Gold Silver Ratio",
-data:dataPoints,
-borderWidth:2
-}]
-}
-})
 
 function updateChart(ratio){
 
@@ -64,3 +64,7 @@ dataPoints.shift()
 ratioChart.update()
 
 }
+
+getPrices()
+
+setInterval(getPrices,60000)
