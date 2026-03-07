@@ -88,3 +88,29 @@ new TradingView.widget({
 });
 </script>
 
+function updateSignal(ratio){
+
+document.getElementById("ratioValue").innerText = ratio.toFixed(2);
+
+let signal = "";
+let color = "";
+
+if(ratio > 80){
+signal = "Silver may be undervalued";
+color = "green";
+}
+else if(ratio < 60){
+signal = "Gold may be undervalued";
+color = "goldenrod";
+}
+else{
+signal = "Neutral zone";
+color = "gray";
+}
+
+const text = document.getElementById("signalText");
+text.innerText = signal;
+text.style.color = color;
+
+}
+
