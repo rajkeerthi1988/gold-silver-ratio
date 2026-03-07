@@ -6,11 +6,11 @@ async function getPrices(){
 
 try{
 
-const res = await fetch("https://api.metals.live/v1/spot");
+const res = await fetch("https://data-asg.goldprice.org/dbXRates/USD");
 const data = await res.json();
 
-let gold = data.find(m => m.gold).gold;
-let silver = data.find(m => m.silver).silver;
+let gold = data.items[0].xauPrice;
+let silver = data.items[0].xagPrice;
 
 let ratio = gold / silver;
 
@@ -19,15 +19,16 @@ document.getElementById("silverPrice").innerText = "$" + silver.toFixed(2);
 document.getElementById("ratio").innerText = ratio.toFixed(2);
 
 updateSignal(ratio);
-updateChart(ratio);
 updateStrategy(ratio);
-  
+updateChart(ratio);
+
 }catch(error){
 
-console.log("API error:",error);
+console.log("API error:", error);
 
 }
 
+}
 }
 
 function updateSignal(ratio){
@@ -134,6 +135,7 @@ createChart();
 getPrices();
 
 setInterval(getPrices,60000);
+
 
 
 
