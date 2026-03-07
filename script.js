@@ -18,6 +18,7 @@ document.getElementById("goldPrice").innerText = "$" + gold.toFixed(2);
 document.getElementById("silverPrice").innerText = "$" + silver.toFixed(2);
 document.getElementById("ratio").innerText = ratio.toFixed(2);
 
+createChart();  
 updateSignal(ratio);
 updateStrategy(ratio);
 updateChart(ratio);
@@ -276,6 +277,7 @@ createChart();
 getPrices();
 
 setInterval(getPrices,60000);
+
 
 
 
