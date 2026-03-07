@@ -164,6 +164,10 @@ rotation:-90,
 circumference:180,
 cutout:'70%',
 plugins:{
+title:{
+display:true,
+text:"Live Gold Silver Ratio"
+}
 legend:{display:false}
 }
 }
@@ -184,6 +188,7 @@ createChart();
 getPrices();
 
 setInterval(getPrices,60000);
+
 
 
 
