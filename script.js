@@ -1,49 +1,32 @@
-let labels = []
-let dataPoints = []
-
-const ctx = document.getElementById("ratioChart").getContext("2d")
-
-const ratioChart = new Chart(ctx,{
-type:'line',
-data:{
-labels:labels,
-datasets:[{
-label:"Gold Silver Ratio",
-data:dataPoints,
-borderWidth:2,
-fill:false
-}]
-},
-options:{
-responsive:true
-}
-})
+let chart;
+let labels = [];
+let dataPoints = [];
 
 async function getPrices(){
 
 try{
 
-let goldResponse = await fetch("https://api.gold-api.com/price/XAU")
-let goldData = await goldResponse.json()
+const goldRes = await fetch("https://api.gold-api.com/price/XAU");
+const silverRes = await fetch("https://api.gold-api.com/price/XAG");
 
-let silverResponse = await fetch("https://api.gold-api.com/price/XAG")
-let silverData = await silverResponse.json()
+const goldData = await goldRes.json();
+const silverData = await silverRes.json();
 
-let gold = goldData.price
-let silver = silverData.price
+const gold = goldData.price;
+const silver = silverData.price;
 
-document.getElementById("gold").innerHTML = "$" + gold.toFixed(2)
-document.getElementById("silver").innerHTML = "$" + silver.toFixed(2)
+const ratio = gold / silver;
 
-let ratio = gold / silver
+document.getElementById("goldPrice").innerText = "$" + gold.toFixed(2);
+document.getElementById("silverPrice").innerText = "$" + silver.toFixed(2);
+document.getElementById("ratio").innerText = ratio.toFixed(2);
 
-document.getElementById("ratio").innerHTML = ratio.toFixed(2)
+updateSignal(ratio);
+updateChart(ratio);
 
-updateChart(ratio)
+}catch(err){
 
-}catch(error){
-
-console.log("Price fetch failed", error)
+console.log(err);
 
 }
 
@@ -53,52 +36,72 @@ function updateSignal(ratio){
 
 document.getElementById("ratioValue").innerText = ratio.toFixed(2);
 
-let signal = "";
-let color = "";
+let signal="";
 
 if(ratio > 80){
-signal = "Silver may be undervalued";
-color = "green";
+
+signal="Silver may be undervalued";
+
 }
 else if(ratio < 60){
-signal = "Gold may be undervalued";
-color = "goldenrod";
+
+signal="Gold may be undervalued";
+
 }
 else{
-signal = "Neutral zone";
-color = "gray";
-}
 
-const text = document.getElementById("signalText");
-text.innerText = signal;
-text.style.color = color;
+signal="Neutral zone";
 
 }
 
-getPrices()
-updateSignal(ratio)
-setInterval(getPrices,5000)
+document.getElementById("signalText").innerText=signal;
 
-<script src="https://s3.tradingview.com/tv.js"></script>
+}
 
-<script>
-new TradingView.widget({
-  "container_id": "tradingview_ratio",
-  "width": "100%",
-  "height": 500,
-  "symbol": "TVC:GOLD/TVC:SILVER",
-  "interval": "D",
-  "timezone": "Etc/UTC",
-  "theme": "light",
-  "style": "1",
-  "locale": "en",
-  "toolbar_bg": "#f1f3f6",
-  "enable_publishing": false,
-  "allow_symbol_change": false
+function createChart(){
+
+const ctx=document.getElementById("ratioChart");
+
+chart=new Chart(ctx,{
+
+type:"line",
+
+data:{
+labels:labels,
+datasets:[{
+label:"Gold Silver Ratio",
+data:dataPoints,
+borderWidth:2
+}]
+},
+
+options:{
+responsive:true
+}
+
 });
-</script>
 
+}
 
+function updateChart(ratio){
 
+const time=new Date().toLocaleTimeString();
 
+labels.push(time);
+dataPoints.push(ratio);
 
+if(labels.length>20){
+
+labels.shift();
+dataPoints.shift();
+
+}
+
+chart.update();
+
+}
+
+createChart();
+getPrices();
+
+setInterval(getPrices,60000);
