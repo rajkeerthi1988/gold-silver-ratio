@@ -23,7 +23,7 @@ updateStrategy(ratio);
 updateChart(ratio);
 updateGauge(ratio);
 updateSentiment(ratio);  
-updateGauge(ratio);
+updatePerformance(gold, silver)
 updateTime();
 
 }catch(error){
@@ -249,10 +249,34 @@ el.style.color = color;
 
 }
 
+function updatePerformance(gold, silver){
+
+let winner = "";
+let text = "";
+
+if(gold > silver){
+winner = "Gold Stronger Today";
+text = "Gold price is outperforming silver today.";
+}
+else if(silver > gold){
+winner = "Silver Stronger Today";
+text = "Silver price is outperforming gold today.";
+}
+else{
+winner = "Equal Performance";
+text = "Both metals are moving similarly.";
+}
+
+document.getElementById("performanceWinner").innerText = winner;
+document.getElementById("performanceText").innerText = text;
+
+}
+
 createChart();
 getPrices();
 
 setInterval(getPrices,60000);
+
 
 
 
