@@ -98,8 +98,40 @@ chart.update();
 
 }
 
+function updateStrategy(ratio){
+
+let signal="";
+let advice="";
+
+if(ratio > 80){
+
+signal="Switch to Silver";
+advice="Silver historically outperforms when ratio is high.";
+
+}
+
+else if(ratio < 60){
+
+signal="Switch to Gold";
+advice="Gold historically outperforms when ratio is low.";
+
+}
+
+else{
+
+signal="Hold Position";
+advice="Market is balanced between gold and silver.";
+
+}
+
+document.getElementById("strategySignal").innerText = signal;
+document.getElementById("strategyAdvice").innerText = advice;
+
+}
+
 createChart();
 getPrices();
 
 setInterval(getPrices,60000);
+
 
