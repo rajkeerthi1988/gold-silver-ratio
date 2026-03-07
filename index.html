@@ -2,18 +2,42 @@
 <html>
 <head>
 
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>Gold Silver Ratio Tracker</title>
 
-<meta name="description" content="Live Gold Silver Ratio calculator. Track gold and silver prices and compare their ratio in real time.">
-<meta name="description" content="Live Gold Silver Ratio tracker. Compare gold and silver prices and see the real-time ratio.">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">  
-  
-<link rel="stylesheet" href="style.css">
-
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<style>
+
+body{
+font-family:Arial;
+background:#f2f2f2;
+text-align:center;
+}
+
+.cards{
+display:flex;
+justify-content:center;
+gap:20px;
+margin-top:30px;
+}
+
+.card{
+background:white;
+padding:20px;
+border-radius:10px;
+width:180px;
+box-shadow:0 4px 10px rgba(0,0,0,0.1);
+}
+
+.ratio{
+background:gold;
+}
+
+.signal-box{
+margin-top:30px;
+}
+
+</style>
 
 </head>
 
@@ -21,48 +45,40 @@
 
 <h1>Gold Silver Ratio Tracker</h1>
 
-<div class="dashboard">
+<div class="cards">
 
 <div class="card">
 <h3>Gold Price</h3>
-<p id="gold">Loading...</p>
+<p id="goldPrice">Loading...</p>
 </div>
 
 <div class="card">
 <h3>Silver Price</h3>
-<p id="silver">Loading...</p>
+<p id="silverPrice">Loading...</p>
 </div>
 
-<div class="card highlight">
+<div class="card ratio">
 <h3>Gold Silver Ratio</h3>
 <p id="ratio">Loading...</p>
 </div>
 
-<h2>Gold Silver Ratio Signal</h2>
+</div>
 
 <div class="signal-box">
-  <div id="ratioValue">--</div>
-  <div id="signalText">Calculating...</div>
-</div>
-  
+
+<h2>Gold Silver Ratio Signal</h2>
+
+<h1 id="ratioValue">--</h1>
+
+<p id="signalText">Calculating...</p>
+
 </div>
 
-<p id="signal"></p>
+<br><br>
 
-<canvas id="ratioChart"></canvas>
+<canvas id="ratioChart" width="800" height="400"></canvas>
 
 <script src="script.js"></script>
 
-<h2>Gold Silver Ratio Historical Chart</h2>
-
-<div class="tradingview-widget-container">
-  <div id="tradingview_ratio"></div>
-</div>
-  
-  
 </body>
-
 </html>
-
-
-
