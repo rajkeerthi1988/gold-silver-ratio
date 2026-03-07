@@ -20,7 +20,8 @@ document.getElementById("ratio").innerText = ratio.toFixed(2);
 
 updateSignal(ratio);
 updateChart(ratio);
-
+updateStrategy(ratio);
+  
 }catch(error){
 
 console.log("API error:",error);
@@ -133,5 +134,6 @@ createChart();
 getPrices();
 
 setInterval(getPrices,60000);
+
 
 
