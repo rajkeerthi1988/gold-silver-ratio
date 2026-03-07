@@ -131,10 +131,45 @@ document.getElementById("strategyAdvice").innerText = advice;
 
 }
 
+function updateGauge(ratio){
+
+const ctx = document.getElementById("ratioGauge");
+
+new Chart(ctx,{
+type:'doughnut',
+data:{
+datasets:[{
+data:[ratio,100-ratio]
+}]
+},
+options:{
+rotation:-90,
+circumference:180,
+cutout:'70%',
+plugins:{
+legend:{display:false}
+}
+}
+});
+
+}
+
+function updateTime(){
+
+let now = new Date();
+
+document.getElementById("lastUpdated").innerText =
+"Last Updated: " + now.toLocaleTimeString();
+
+}
+
 createChart();
 getPrices();
+updateGauge(ratio);
+updateTime();
 
 setInterval(getPrices,60000);
+
 
 
 
