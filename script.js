@@ -67,4 +67,5 @@ ratioChart.update()
 
 getPrices()
 
-setInterval(getPrices,60000)
+
+setInterval(getPrices,5000)
