@@ -9,11 +9,13 @@ try{
 const res = await fetch("https://api.metals.live/v1/spot");
 const data = await res.json();
 
-let gold = data.items[0].xauPrice;
-let silver = data.items[0].xagPrice;
+console.log(data);
+
+let gold = data[0].gold;
+let silver = data[1].silver;
 
 let ratio = gold / silver;
-
+  
 document.getElementById("goldPrice").innerText = "$" + gold.toFixed(2);
 document.getElementById("silverPrice").innerText = "$" + silver.toFixed(2);
 document.getElementById("ratio").innerText = ratio.toFixed(2);
@@ -259,6 +261,7 @@ createChart();
 getPrices();
 
 setInterval(getPrices,60000);
+
 
 
 
