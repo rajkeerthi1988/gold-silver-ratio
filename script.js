@@ -6,14 +6,14 @@ async function getPrices(){
 
 try{
 
-const goldRes = await fetch("https://api.allorigins.win/raw?url=https://priceapi.moneycontrol.com/commodity/gold");
-const silverRes = await fetch("https://api.allorigins.win/raw?url=https://priceapi.moneycontrol.com/commodity/silver");
+const goldRes = await fetch("https://api.coinbase.com/v2/prices/XAU-USD/spot");
+const silverRes = await fetch("https://api.coinbase.com/v2/prices/XAG-USD/spot");
 
 const goldData = await goldRes.json();
 const silverData = await silverRes.json();
 
-let gold = goldData.price;
-let silver = silverData.price;
+let gold = parseFloat(goldData.data.amount);
+let silver = parseFloat(silverData.data.amount);
 
 let ratio = gold / silver;
 
@@ -31,7 +31,7 @@ updateTime();
 
 }catch(error){
 
-console.log("Price fetch error:", error);
+console.log("API error:", error);
 
 }
 
@@ -260,6 +260,7 @@ createChart();
 getPrices();
 
 setInterval(getPrices,60000);
+
 
 
 
