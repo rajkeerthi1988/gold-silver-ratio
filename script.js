@@ -7,9 +7,19 @@ async function getPrices(){
 try{
 
 const goldRes = await fetch("https://api.coinbase.com/v2/prices/XAU-USD/spot");
-const silverRes = await fetch("https://api.coinbase.com/v2/prices/XAG-USD/spot");
+
+if(!goldRes.ok){
+throw new Error("Gold API failed");
+}
 
 const goldData = await goldRes.json();
+
+const silverRes = await fetch("https://api.coinbase.com/v2/prices/XAG-USD/spot");
+
+if(!silverRes.ok){
+throw new Error("Silver API failed");
+}
+
 const silverData = await silverRes.json();
 
 let gold = parseFloat(goldData.data.amount);
@@ -31,7 +41,10 @@ updateTime();
 
 }catch(error){
 
-console.log("API error:", error);
+console.log("Price fetch error:", error);
+
+document.getElementById("goldPrice").innerText = "API Error";
+document.getElementById("silverPrice").innerText = "API Error";
 
 }
 
@@ -260,6 +273,7 @@ createChart();
 getPrices();
 
 setInterval(getPrices,60000);
+
 
 
 
