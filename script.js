@@ -13,6 +13,11 @@ encodeURIComponent("https://api.metals.live/v1/spot")
 );
 
 const wrapped = await res.json();
+
+if(!wrapped || !wrapped.contents){
+throw new Error("Proxy returned empty response");
+}
+
 const data = JSON.parse(wrapped.contents);
 
 let gold = data[0].gold;
@@ -20,13 +25,24 @@ let silver = data[1].silver;
 
 let ratio = gold / silver;
 
-document.getElementById("goldPrice").innerText="$"+gold.toFixed(2);
-document.getElementById("silverPrice").innerText="$"+silver.toFixed(2);
-document.getElementById("ratio").innerText=ratio.toFixed(2);
+document.getElementById("goldPrice").innerText = "$" + gold.toFixed(2);
+document.getElementById("silverPrice").innerText = "$" + silver.toFixed(2);
+document.getElementById("ratio").innerText = ratio.toFixed(2);
+
+updateSignal(ratio);
+updateStrategy(ratio);
+updateChart(ratio);
+updateGauge(ratio);
+updateSentiment(ratio);
+updatePerformance(ratio);
+updateTime();
 
 }catch(error){
 
-console.log("Price fetch error:",error);
+console.log("Price fetch error:", error);
+
+document.getElementById("goldPrice").innerText="API Error";
+document.getElementById("silverPrice").innerText="API Error";
 
 }
 
@@ -263,4 +279,5 @@ createChart();
 getPrices();
 
 setInterval(getPrices,60000);
+
 
