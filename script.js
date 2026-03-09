@@ -6,36 +6,36 @@ async function getPrices(){
 
 try{
 
-const res = await fetch("https://api.metals.dev/v1/latest?api_key=demo&symbols=XAU,XAG");
+const goldRes = await fetch("https://api.allorigins.win/raw?url=https://priceapi.moneycontrol.com/commodity/gold");
+const silverRes = await fetch("https://api.allorigins.win/raw?url=https://priceapi.moneycontrol.com/commodity/silver");
 
-const data = await res.json();
+const goldData = await goldRes.json();
+const silverData = await silverRes.json();
 
-let gold = data.metals.gold;
-let silver = data.metals.silver;
+let gold = goldData.price;
+let silver = silverData.price;
 
 let ratio = gold / silver;
-  
+
 document.getElementById("goldPrice").innerText = "$" + gold.toFixed(2);
 document.getElementById("silverPrice").innerText = "$" + silver.toFixed(2);
 document.getElementById("ratio").innerText = ratio.toFixed(2);
 
-createChart();  
 updateSignal(ratio);
 updateStrategy(ratio);
 updateChart(ratio);
 updateGauge(ratio);
-updateSentiment(ratio);  
-updatePerformance(gold, silver);
+updateSentiment(ratio);
+updatePerformance(ratio);
 updateTime();
 
 }catch(error){
 
-console.log("API error:", error);
+console.log("Price fetch error:", error);
 
 }
 
 }
-
 
 function createChart(){
 
@@ -260,6 +260,7 @@ createChart();
 getPrices();
 
 setInterval(getPrices,60000);
+
 
 
 
