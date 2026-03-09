@@ -1,115 +1,52 @@
 body{
-font-family: "Segoe UI", Arial, sans-serif;
-background:#f5f7fb;
-text-align:center;
+font-family: Arial;
+background:#f4f6f9;
 margin:0;
-padding:40px;
+padding:20px;
+text-align:center;
 }
 
 h1{
-font-size:36px;
-margin-bottom:40px;
+margin-bottom:30px;
 }
 
-.dashboard{
-display:flex;
-justify-content:center;
+.container{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
 gap:20px;
-margin-top:40px;
 }
 
 .card{
 background:white;
-padding:25px;
-border-radius:14px;
-width:200px;
-box-shadow:0 10px 25px rgba(0,0,0,0.08);
-transition:transform 0.2s ease;
-}
-
-.card:hover{
-transform:translateY(-5px);
-}
-
-.highlight{
-background:gold;
-font-weight:bold;
-}
-
-canvas{
-max-width:800px;
-margin:40px auto;
-display:block;
-}
-
-.signal-box{
-margin-top:40px;
-background:white;
-padding:25px;
-border-radius:14px;
-box-shadow:0 10px 25px rgba(0,0,0,0.08);
-display:inline-block;
-}
-
-#ratioValue{
-font-size:40px;
-font-weight:bold;
-}
-
-#signalText{
-font-size:20px;
-margin-top:10px;
-}
-
-.ratio{
-background:linear-gradient(135deg,#ffd700,#ffcc00);
-color:black;
-font-weight:bold;
-}
-
-.simulator{
-margin-top:40px;
-background:white;
-padding:25px;
-border-radius:14px;
-box-shadow:0 10px 25px rgba(0,0,0,0.08);
-display:inline-block;
-width:300px;
-}
-
-.sentiment-box{
-margin-top:30px;
-background:white;
-padding:25px;
-border-radius:14px;
-box-shadow:0 10px 25px rgba(0,0,0,0.08);
-display:inline-block;
-width:300px;
-}
-
-
-.explanation{
-max-width:800px;
-margin:40px auto;
-background:white;
-padding:25px;
-border-radius:12px;
-box-shadow:0 8px 20px rgba(0,0,0,0.08);
-line-height:1.6;
-}
-
-.explanation h2{
-margin-bottom:10px;
-}
-
-.performance-box{
-margin-top:20px;
 padding:20px;
-background:white;
 border-radius:10px;
-width:300px;
-margin-left:auto;
-margin-right:auto;
 box-shadow:0 4px 10px rgba(0,0,0,0.1);
 }
 
+.chart{
+grid-column:span 2;
+}
+
+input{
+padding:10px;
+width:120px;
+margin-right:10px;
+}
+
+button{
+padding:10px 15px;
+cursor:pointer;
+background:#2d7ff9;
+color:white;
+border:none;
+border-radius:5px;
+}
+
+button:hover{
+background:#1b5edb;
+}
+
+#ratio{
+font-size:32px;
+font-weight:bold;
+}
