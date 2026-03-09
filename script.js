@@ -265,20 +265,3 @@ setInterval(getPrices,60000);
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
