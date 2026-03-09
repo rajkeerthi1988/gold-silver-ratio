@@ -1,201 +1,86 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-
-<title>Gold Silver Ratio Tracker</title>
-  
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
-<style>
-
-body{
-font-family:Arial;
-background:#f2f2f2;
-text-align:center;
-}
-
-.cards{
-display:flex;
-justify-content:center;
-gap:20px;
-margin-top:30px;
-}
-
-.card{
-background:white;
-padding:20px;
-border-radius:10px;
-width:180px;
-box-shadow:0 4px 10px rgba(0,0,0,0.1);
-}
-
-.ratio{
-background:gold;
-}
-
-.signal-box{
-margin-top:30px;
-}
-
-</style>
-
-<meta name="description" content="Live Gold Silver Ratio tracker with charts and signals">
-<meta name="keywords" content="gold silver ratio, gold silver ratio chart">
-
+<meta charset="UTF-8">
+<title>Gold Silver Ratio Dashboard</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<!-- Open Graph Tags -->
-<meta property="og:title" content="Gold Silver Ratio Tracker">
-<meta property="og:description" content="Track the live Gold Silver Ratio with real-time prices, charts, trading signals, and sentiment indicators.">
-<meta property="og:type" content="website">
-<meta property="og:url" content="https://rajkeerthi1988.github.io/gold-silver-ratio/">
-<meta property="og:image" content="https://rajkeerthi1988.github.io/gold-silver-ratio/preview.png">
+<link rel="stylesheet" href="style.css">
 
-<meta http-equiv="refresh" content="300">  
-  
+<meta name="description" content="Gold Silver Ratio Dashboard with signals, sentiment and strategy insights.">
+
 </head>
 
 <body>
-  
-<h1>Live Gold Silver Ratio Chart & Real-Time Precious Metals Prices</h1>
-  
-<section class="explanation" style="max-width:700px;margin:auto;">
 
-<h2>What is the Gold-Silver Ratio?</h2>
+<h1>Gold Silver Ratio Dashboard</h1>
 
-<p>
-The Gold-Silver Ratio measures how many ounces of silver are required to buy one ounce of gold.
-Investors track this ratio to identify potential relative value between the two precious metals.
-</p>
-
-<p>
-Historically, a high ratio may indicate that silver is undervalued relative to gold,
-while a low ratio may suggest that gold is undervalued compared to silver.
-</p>
-
-</section>
-  
-
-
-<div class="cards">
+<div class="container">
 
 <div class="card">
-<h3>Gold Price</h3>
-<p id="goldPrice">Loading...</p>
+<h2>Enter Current Ratio</h2>
+
+<input id="manualRatio" placeholder="Example: 82">
+<button onclick="updateFromManual()">Update Dashboard</button>
+
+<h3>Current Ratio</h3>
+<p id="ratio">--</p>
 </div>
+
 
 <div class="card">
-<h3>Silver Price</h3>
-<p id="silverPrice">Loading...</p>
+<h2>Signal</h2>
+<p id="signal">--</p>
 </div>
 
-<div class="card ratio">
-<h3>Gold Silver Ratio</h3>
-<p id="ratio">Loading...</p>
+
+<div class="card">
+<h2>Strategy</h2>
+<p id="strategy">--</p>
 </div>
 
-</div>
 
-<div class="signal-box">
-
-<h2>Gold Silver Ratio Signal</h2>
-
-<h1 id="ratioValue">--</h1>
-
-<p id="signalText">Calculating...</p>
-
-</div>
-
-<h2>Gold Silver Ratio Strategy Simulator</h2>
-
-<div class="simulator">
-
-<p>Current Strategy Signal</p>
-
-<h1 id="strategySignal">--</h1>
-
-<p id="strategyAdvice">Waiting for data...</p>
-
-</div>  
-
+<div class="card">
 <h2>Market Sentiment</h2>
-
-<div class="sentiment-box">
-<h1 id="sentimentValue">--</h1>
-<p id="sentimentText">Waiting for data...</p>
+<p id="sentiment">--</p>
 </div>
 
-<h2>Metal Performance Today</h2>
 
-<div class="performance-box">
-
-<h1 id="performanceWinner">--</h1>
-
-<p id="performanceText">Calculating...</p>
-
+<div class="card">
+<h2>Ratio Gauge</h2>
+<canvas id="gauge" width="300" height="150"></canvas>
 </div>
-  
-<h2>Gold Silver Ratio Gauge</h2>
-<canvas id="ratioGauge" width="300" height="150"></canvas>  
 
-<h2>Ratio Trading Zones</h2>
 
-<ul>
-<li><b>Above 80</b> → Silver historically undervalued</li>
-<li><b>60 – 80</b> → Neutral zone</li>
-<li><b>Below 60</b> → Gold historically undervalued</li>
-</ul>
+<div class="card chart">
+<h2>Gold/Silver Ratio Chart</h2>
 
-<div id="ratioSignal" style="font-size:20px; font-weight:bold; margin-top:20px;"></div>
-  
-<p id="lastUpdated">Updating...</p>
-  
-<br><br>
-
-<div id="tv-price-feed"></div>
-  
-<h2>Gold Silver Ratio Chart</h2>
-
-<div class="tradingview-widget-container">
-  <div id="tradingview_ratio"></div>
-</div>
-  
-<canvas id="ratioChart" width="800" height="400"></canvas>
-
-<script src="script.js"></script>
+<!-- TradingView Widget -->
+<div id="tradingview_ratio"></div>
 
 <script src="https://s3.tradingview.com/tv.js"></script>
 
 <script>
 new TradingView.widget({
-  "container_id": "tradingview_ratio",
-  "width": "100%",
-  "height": 500,
-  "symbol": "TVC:GOLD/TVC:SILVER",
-  "interval": "D",
-  "timezone": "Etc/UTC",
-  "theme": "light",
-  "style": "1",
-  "locale": "en",
-  "toolbar_bg": "#f1f3f6",
-  "enable_publishing": false,
-  "allow_symbol_change": false
+container_id: "tradingview_ratio",
+width: "100%",
+height: 500,
+symbol: "TVC:GOLD/TVC:SILVER",
+interval: "D",
+timezone: "Etc/UTC",
+theme: "light",
+style: "1",
+locale: "en",
+enable_publishing: false,
+allow_symbol_change: false
 });
 </script>
 
+</div>
+
+</div>
+
+<script src="script.js"></script>
+
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
