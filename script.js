@@ -7,37 +7,26 @@ async function getPrices(){
 
 try{
 
-const res = await fetch("https://api.allorigins.win/raw?url=https://api.metals.live/v1/spot");
+const res = await fetch(
+"https://api.allorigins.win/get?url=" +
+encodeURIComponent("https://api.metals.live/v1/spot")
+);
 
-if(!res.ok){
-throw new Error("Price API request failed");
-}
-
-const data = await res.json();
+const wrapped = await res.json();
+const data = JSON.parse(wrapped.contents);
 
 let gold = data[0].gold;
 let silver = data[1].silver;
 
 let ratio = gold / silver;
 
-document.getElementById("goldPrice").innerText = "$" + gold.toFixed(2);
-document.getElementById("silverPrice").innerText = "$" + silver.toFixed(2);
-document.getElementById("ratio").innerText = ratio.toFixed(2);
-
-updateSignal(ratio);
-updateStrategy(ratio);
-updateChart(ratio);
-updateGauge(ratio);
-updateSentiment(ratio);
-updatePerformance(ratio);
-updateTime();
+document.getElementById("goldPrice").innerText="$"+gold.toFixed(2);
+document.getElementById("silverPrice").innerText="$"+silver.toFixed(2);
+document.getElementById("ratio").innerText=ratio.toFixed(2);
 
 }catch(error){
 
-console.log("Price fetch error:", error);
-
-document.getElementById("goldPrice").innerText = "API Error";
-document.getElementById("silverPrice").innerText = "API Error";
+console.log("Price fetch error:",error);
 
 }
 
@@ -274,3 +263,4 @@ createChart();
 getPrices();
 
 setInterval(getPrices,60000);
+
