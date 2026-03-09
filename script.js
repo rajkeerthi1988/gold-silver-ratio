@@ -6,13 +6,12 @@ async function getPrices(){
 
 try{
 
-const res = await fetch("https://api.metals.live/v1/spot");
+const res = await fetch("https://api.metals.dev/v1/latest?api_key=demo&symbols=XAU,XAG");
+
 const data = await res.json();
 
-console.log(data);
-
-let gold = data[0].gold;
-let silver = data[1].silver;
+let gold = data.metals.gold;
+let silver = data.metals.silver;
 
 let ratio = gold / silver;
   
@@ -261,6 +260,7 @@ createChart();
 getPrices();
 
 setInterval(getPrices,60000);
+
 
 
 
