@@ -1,4 +1,5 @@
 let chart;
+let gauge;
 let labels = [];
 let dataPoints = [];
 
@@ -6,24 +7,16 @@ async function getPrices(){
 
 try{
 
-const goldRes = await fetch("https://api.coinbase.com/v2/prices/XAU-USD/spot");
+const res = await fetch("https://api.allorigins.win/raw?url=https://api.metals.live/v1/spot");
 
-if(!goldRes.ok){
-throw new Error("Gold API failed");
+if(!res.ok){
+throw new Error("Price API request failed");
 }
 
-const goldData = await goldRes.json();
+const data = await res.json();
 
-const silverRes = await fetch("https://api.coinbase.com/v2/prices/XAG-USD/spot");
-
-if(!silverRes.ok){
-throw new Error("Silver API failed");
-}
-
-const silverData = await silverRes.json();
-
-let gold = parseFloat(goldData.data.amount);
-let silver = parseFloat(silverData.data.amount);
+let gold = data[0].gold;
+let silver = data[1].silver;
 
 let ratio = gold / silver;
 
@@ -47,6 +40,32 @@ document.getElementById("goldPrice").innerText = "API Error";
 document.getElementById("silverPrice").innerText = "API Error";
 
 }
+
+}
+
+function updateSignal(ratio){
+
+let signal="";
+let color="";
+
+if(ratio > 80){
+signal="Silver Looks Undervalued";
+color="green";
+}
+else if(ratio < 60){
+signal="Gold Looks Undervalued";
+color="gold";
+}
+else{
+signal="Neutral Zone";
+color="gray";
+}
+
+const el = document.getElementById("ratioSignal");
+el.innerText = signal + " (Ratio: " + ratio.toFixed(2) + ")";
+el.style.color = color;
+
+document.getElementById("signalText").innerText = signal;
 
 }
 
@@ -78,18 +97,12 @@ duration:800
 },
 
 plugins:{
-legend:{
-display:true
-},
-tooltip:{
-enabled:true
-}
+legend:{display:true},
+tooltip:{enabled:true}
 },
 
 scales:{
-y:{
-beginAtZero:false
-}
+y:{beginAtZero:false}
 }
 
 }
@@ -106,10 +119,8 @@ labels.push(time);
 dataPoints.push(ratio);
 
 if(labels.length>20){
-
 labels.shift();
 dataPoints.shift();
-
 }
 
 chart.update();
@@ -149,36 +160,46 @@ document.getElementById("strategyAdvice").innerText = advice;
 
 function updateGauge(ratio){
 
+if(!gauge){
+
 const ctx = document.getElementById("ratioGauge");
 
-new Chart(ctx,{
+gauge = new Chart(ctx,{
 type:'doughnut',
+
 data:{
 datasets:[{
 data:[ratio,120-ratio],
-backgroundColor:[
-"#ffd700",
-"#eeeeee"
-]
+backgroundColor:["#ffd700","#eeeeee"]
 }]
 },
+
 options:{
 rotation:-90,
 circumference:180,
 cutout:'70%',
+
 plugins:{
 title:{
 display:true,
 text:"Live Gold Silver Ratio"
 },
-legend:{
-display:false
+legend:{display:false}
 }
-}
-}
-});
 
 }
+
+});
+
+}else{
+
+gauge.data.datasets[0].data = [ratio,120-ratio];
+gauge.update();
+
+}
+
+}
+
 function updateTime(){
 
 let now = new Date();
@@ -220,48 +241,28 @@ document.getElementById("sentimentText").innerText =
 
 }
 
-function updateSignal(ratio){
+function updatePerformance(ratio){
 
-let signal = "";
-let color = "";
+let winner="";
+let text="";
 
 if(ratio > 80){
-signal = "Silver Looks Undervalued";
-color = "green";
-}
 
+winner="Silver Opportunity";
+text="Silver may outperform when ratio is high.";
+
+}
 else if(ratio < 60){
-signal = "Gold Looks Undervalued";
-color = "gold";
-}
 
-else{
-signal = "Neutral Zone";
-color = "gray";
-}
+winner="Gold Opportunity";
+text="Gold may outperform when ratio is low.";
 
-const el = document.getElementById("ratioSignal");
-el.innerText = signal + " (Ratio: " + ratio.toFixed(2) + ")";
-el.style.color = color;
-
-}
-
-function updatePerformance(gold, silver){
-
-let winner = "";
-let text = "";
-
-if(gold > silver){
-winner = "Gold Stronger Today";
-text = "Gold price is outperforming silver today.";
-}
-else if(silver > gold){
-winner = "Silver Stronger Today";
-text = "Silver price is outperforming gold today.";
 }
 else{
-winner = "Equal Performance";
-text = "Both metals are moving similarly.";
+
+winner="Balanced Market";
+text="No strong advantage between metals.";
+
 }
 
 document.getElementById("performanceWinner").innerText = winner;
@@ -273,10 +274,3 @@ createChart();
 getPrices();
 
 setInterval(getPrices,60000);
-
-
-
-
-
-
-
