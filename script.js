@@ -1,283 +1,100 @@
-let chart;
-let gauge;
-let labels = [];
-let dataPoints = [];
+function updateFromManual(){
 
-async function getPrices(){
+let ratio = parseFloat(document.getElementById("manualRatio").value);
 
-try{
-
-const res = await fetch(
-"https://api.allorigins.win/get?url=" +
-encodeURIComponent("https://api.metals.live/v1/spot")
-);
-
-const wrapped = await res.json();
-
-if(!wrapped || !wrapped.contents){
-throw new Error("Proxy returned empty response");
+if(isNaN(ratio)){
+alert("Please enter a valid ratio");
+return;
 }
 
-const data = JSON.parse(wrapped.contents);
-
-let gold = data[0].gold;
-let silver = data[1].silver;
-
-let ratio = gold / silver;
-
-document.getElementById("goldPrice").innerText = "$" + gold.toFixed(2);
-document.getElementById("silverPrice").innerText = "$" + silver.toFixed(2);
 document.getElementById("ratio").innerText = ratio.toFixed(2);
 
 updateSignal(ratio);
 updateStrategy(ratio);
-updateChart(ratio);
 updateGauge(ratio);
 updateSentiment(ratio);
-updatePerformance(ratio);
-updateTime();
-
-}catch(error){
-
-console.log("Price fetch error:", error);
-
-document.getElementById("goldPrice").innerText="API Error";
-document.getElementById("silverPrice").innerText="API Error";
 
 }
 
-}
 
 function updateSignal(ratio){
 
 let signal="";
-let color="";
 
 if(ratio > 80){
-signal="Silver Looks Undervalued";
-color="green";
+signal="Silver Undervalued";
 }
 else if(ratio < 60){
-signal="Gold Looks Undervalued";
-color="gold";
+signal="Silver Overvalued";
 }
 else{
 signal="Neutral Zone";
-color="gray";
 }
 
-const el = document.getElementById("ratioSignal");
-el.innerText = signal + " (Ratio: " + ratio.toFixed(2) + ")";
-el.style.color = color;
-
-document.getElementById("signalText").innerText = signal;
+document.getElementById("signal").innerText=signal;
 
 }
 
-function createChart(){
 
-const ctx = document.getElementById("ratioChart");
-
-chart = new Chart(ctx,{
-
-type:"line",
-
-data:{
-labels:labels,
-datasets:[{
-label:"Gold Silver Ratio",
-data:dataPoints,
-borderWidth:3,
-tension:0.4,
-pointRadius:3,
-fill:false
-}]
-},
-
-options:{
-responsive:true,
-
-animation:{
-duration:800
-},
-
-plugins:{
-legend:{display:true},
-tooltip:{enabled:true}
-},
-
-scales:{
-y:{beginAtZero:false}
-}
-
-}
-
-});
-
-}
-
-function updateChart(ratio){
-
-const time=new Date().toLocaleTimeString();
-
-labels.push(time);
-dataPoints.push(ratio);
-
-if(labels.length>20){
-labels.shift();
-dataPoints.shift();
-}
-
-chart.update();
-
-}
 
 function updateStrategy(ratio){
 
-let signal="";
-let advice="";
+let strategy="";
 
 if(ratio > 80){
-
-signal="Switch to Silver";
-advice="Silver historically outperforms when ratio is high.";
-
+strategy="Consider Buying Silver / Selling Gold";
 }
-
 else if(ratio < 60){
-
-signal="Switch to Gold";
-advice="Gold historically outperforms when ratio is low.";
-
+strategy="Consider Buying Gold / Selling Silver";
 }
-
 else{
+strategy="Hold Current Allocation";
+}
 
-signal="Hold Position";
-advice="Market is balanced between gold and silver.";
+document.getElementById("strategy").innerText=strategy;
 
 }
 
-document.getElementById("strategySignal").innerText = signal;
-document.getElementById("strategyAdvice").innerText = advice;
 
-}
-
-function updateGauge(ratio){
-
-if(!gauge){
-
-const ctx = document.getElementById("ratioGauge");
-
-gauge = new Chart(ctx,{
-type:'doughnut',
-
-data:{
-datasets:[{
-data:[ratio,120-ratio],
-backgroundColor:["#ffd700","#eeeeee"]
-}]
-},
-
-options:{
-rotation:-90,
-circumference:180,
-cutout:'70%',
-
-plugins:{
-title:{
-display:true,
-text:"Live Gold Silver Ratio"
-},
-legend:{display:false}
-}
-
-}
-
-});
-
-}else{
-
-gauge.data.datasets[0].data = [ratio,120-ratio];
-gauge.update();
-
-}
-
-}
-
-function updateTime(){
-
-let now = new Date();
-
-document.getElementById("lastUpdated").innerText =
-"Last Updated: " + now.toLocaleTimeString();
-
-}
 
 function updateSentiment(ratio){
 
 let sentiment="";
-let color="";
 
-if(ratio > 80){
-
-sentiment="Bullish for Silver";
-color="green";
-
+if(ratio > 85){
+sentiment="Extreme Silver Opportunity";
 }
-else if(ratio < 60){
-
-sentiment="Bullish for Gold";
-color="goldenrod";
-
+else if(ratio > 75){
+sentiment="Silver Slightly Undervalued";
+}
+else if(ratio < 55){
+sentiment="Silver Expensive";
 }
 else{
+sentiment="Balanced Market";
+}
 
-sentiment="Neutral Market";
-color="gray";
+document.getElementById("sentiment").innerText=sentiment;
 
 }
 
-document.getElementById("sentimentValue").innerText = sentiment;
-document.getElementById("sentimentValue").style.color = color;
 
-document.getElementById("sentimentText").innerText =
-"Based on the current Gold-Silver Ratio.";
 
-}
+function updateGauge(ratio){
 
-function updatePerformance(ratio){
+const canvas=document.getElementById("gauge");
+const ctx=canvas.getContext("2d");
 
-let winner="";
-let text="";
+ctx.clearRect(0,0,300,150);
 
-if(ratio > 80){
+let percentage=Math.min(ratio/120,1);
 
-winner="Silver Opportunity";
-text="Silver may outperform when ratio is high.";
+ctx.beginPath();
+ctx.arc(150,150,100,Math.PI,Math.PI+(Math.PI*percentage));
+ctx.lineWidth=20;
+ctx.stroke();
 
-}
-else if(ratio < 60){
-
-winner="Gold Opportunity";
-text="Gold may outperform when ratio is low.";
+ctx.font="20px Arial";
+ctx.fillText(ratio.toFixed(1),135,120);
 
 }
-else{
-
-winner="Balanced Market";
-text="No strong advantage between metals.";
-
-}
-
-document.getElementById("performanceWinner").innerText = winner;
-document.getElementById("performanceText").innerText = text;
-
-}
-
-createChart();
-getPrices();
-
-setInterval(getPrices,60000);
-
-
