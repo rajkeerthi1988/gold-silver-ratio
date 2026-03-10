@@ -1,3 +1,37 @@
+async function fetchRatio(){
+
+try{
+
+const response = await fetch("https://api.metals.live/v1/spot");
+
+const data = await response.json();
+
+let gold = data.find(m => m.gold)?.gold;
+let silver = data.find(m => m.silver)?.silver;
+
+if(!gold || !silver){
+throw new Error("Metal prices missing");
+}
+
+let ratio = gold / silver;
+
+document.getElementById("ratio").innerText = ratio.toFixed(2);
+
+updateSignal(ratio);
+updateStrategy(ratio);
+updateGauge(ratio);
+updateSentiment(ratio);
+
+}catch(error){
+
+console.error("Price fetch error:", error);
+
+document.getElementById("ratio").innerText="API Error";
+
+}
+
+}
+
 function updateFromManual(){
 
 let ratio = parseFloat(document.getElementById("manualRatio").value);
@@ -98,3 +132,7 @@ ctx.font="20px Arial";
 ctx.fillText(ratio.toFixed(1),135,120);
 
 }
+
+fetchRatio()
+
+setInterval(fetchRatio,60000)
