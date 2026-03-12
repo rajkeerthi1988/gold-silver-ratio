@@ -52,6 +52,20 @@ margin-top:40px;
 
 <body>
 
+<div class="topbar">
+
+<div class="logo">
+⚖ Gold Silver Ratio Dashboard
+</div>
+
+<div class="status">
+<span id="goldPrice">Gold: --</span>
+<span id="silverPrice">Silver: --</span>
+<span id="ratio">Ratio: --</span>
+</div>
+
+</div>
+
 <h1>Gold Silver Ratio Tracker</h1>
 <p style="color:#666">Live Precious Metals Dashboard</p>
 
@@ -75,26 +89,26 @@ margin-top:40px;
 
 </div>
 
-<div class="dashboard-row">
+<div class="dashboard">
 
-<div class="info-card">
+<div class="panel">
 <h3>Market Signal</h3>
-<div id="signal" class="signalBox">Waiting for data...</div>
+<div id="signal" class="signalBox">Waiting...</div>
 </div>
 
-<div class="info-card">
-<h3>Strategy Suggestion</h3>
-<p id="strategy">Waiting for data...</p>
+<div class="panel">
+<h3>Strategy</h3>
+<p id="strategy">Waiting...</p>
 </div>
 
-<div class="info-card">
+<div class="panel">
 <h3>Market Sentiment</h3>
-<p id="sentiment">Waiting for data...</p>
+<p id="sentiment">Waiting...</p>
 </div>
 
-<div class="info-card">
+<div class="panel">
 <h3>Ratio Gauge</h3>
-<canvas id="gauge" width="200" height="120"></canvas>
+<canvas id="gauge" width="220" height="140"></canvas>
 </div>
 
 </div>
@@ -135,5 +149,6 @@ new TradingView.widget({
 </body>
 
 </html>
+
 
 
