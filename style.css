@@ -1,61 +1,55 @@
 body{
-font-family:Arial;
-background:#f4f6f9;
-text-align:center;
 margin:0;
-padding:20px;
+font-family:Arial;
+background:#0e1117;
+color:white;
 }
 
-.cards{
+/* Top bar */
+
+.topbar{
 display:flex;
-justify-content:center;
-gap:20px;
-margin-top:30px;
-flex-wrap:wrap;
+justify-content:space-between;
+align-items:center;
+padding:12px 20px;
+background:#161b22;
+border-bottom:1px solid #30363d;
 }
 
-.card{
-background:white;
-padding:20px;
-border-radius:12px;
-width:200px;
-box-shadow:0 6px 14px rgba(0,0,0,0.08);
-transition:transform 0.2s;
-}
-
-.card:hover{
-transform:translateY(-4px);
-}
-
-.ratio{
-background:linear-gradient(135deg,#ffd700,#ffed8a);
-font-weight:bold;
-}
-
-.section{
-margin-top:40px;
-}
-
-.dashboard-row{
-display:flex;
-justify-content:center;
-gap:20px;
-flex-wrap:wrap;
-margin-top:40px;
-}
-
-.info-card{
-background:white;
-padding:20px;
-border-radius:12px;
-width:220px;
-box-shadow:0 6px 14px rgba(0,0,0,0.08);
-}
-
-.signalBox{
+.logo{
 font-size:18px;
 font-weight:bold;
+color:#ffd700;
+}
+
+.status span{
+margin-left:20px;
+font-size:14px;
+}
+
+/* Dashboard grid */
+
+.dashboard{
+display:flex;
+justify-content:center;
+gap:20px;
+padding:40px;
+flex-wrap:wrap;
+}
+
+.panel{
+background:#161b22;
+padding:20px;
+border-radius:10px;
+width:220px;
+box-shadow:0 4px 10px rgba(0,0,0,0.4);
+text-align:center;
+}
+
+/* Signal box */
+
+.signalBox{
 padding:10px;
 border-radius:6px;
-display:inline-block;
+font-weight:bold;
 }
