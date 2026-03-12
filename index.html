@@ -1,108 +1,148 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
+
 <head>
-<meta charset="UTF-8">
-<title>Gold Silver Ratio Dashboard</title>
+
+<title>Gold Silver Ratio Tracker</title>
+
+<meta name="description" content="Live Gold Silver Ratio tracker with charts and signals">
+<meta name="keywords" content="gold silver ratio, gold silver ratio chart">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<link rel="stylesheet" href="style.css">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-<meta name="description" content="Gold Silver Ratio Dashboard with signals, sentiment and strategy insights.">
+<style>
+
+body{
+font-family:Arial;
+background:#f2f2f2;
+text-align:center;
+margin:0;
+padding:20px;
+}
+
+.cards{
+display:flex;
+justify-content:center;
+gap:20px;
+margin-top:30px;
+flex-wrap:wrap;
+}
+
+.card{
+background:white;
+padding:20px;
+border-radius:10px;
+width:180px;
+box-shadow:0 4px 10px rgba(0,0,0,0.1);
+}
+
+.ratio{
+background:gold;
+}
+
+.section{
+margin-top:40px;
+}
+
+</style>
 
 </head>
 
+
 <body>
 
-<h1>Gold Silver Ratio Dashboard</h1>
+<h1>Gold Silver Ratio Tracker</h1>
+<p style="color:#666">Live Precious Metals Dashboard</p>
 
-<div class="container">
+
+<div class="cards">
 
 <div class="card">
-<h2>Enter Current Ratio</h2>
+<h3>Gold Price</h3>
+<p id="goldPrice">Loading...</p>
+</div>
 
-<input id="manualRatio" placeholder="Example: 82">
-<button onclick="updateFromManual()">Update Dashboard</button>
+<div class="card">
+<h3>Silver Price</h3>
+<p id="silverPrice">Loading...</p>
+</div>
 
-<h3>Current Ratio</h3>
-<p id="ratio">--</p>
+<div class="card ratio">
+<h3>Gold Silver Ratio</h3>
+<p id="ratio">Loading...</p>
+</div>
+
 </div>
 
 
-<div class="card">
-<h2>Signal</h2>
-<p id="signal">--</p>
+<div class="section">
+
+<h2>Market Signal</h2>
+<p id="signal">Waiting for data...</p>
+
 </div>
 
 
-<div class="card">
-<h2>Strategy</h2>
-<p id="strategy">--</p>
+<div class="section">
+
+<h2>Strategy Suggestion</h2>
+<p id="strategy">Waiting for data...</p>
+
 </div>
 
 
-<div class="card">
+<div class="section">
+
 <h2>Market Sentiment</h2>
-<p id="sentiment">--</p>
+<p id="sentiment">Waiting for data...</p>
+
 </div>
 
 
-<div class="card">
-<h2>Ratio Gauge</h2>
+<div class="section">
+
+<h2>Gold Silver Ratio Gauge</h2>
 <canvas id="gauge" width="300" height="150"></canvas>
+
 </div>
 
 
-<div class="card chart">
-<h2>Gold/Silver Ratio Chart</h2>
+<div class="section">
 
-<!-- TradingView Widget -->
+<h2>Gold Silver Ratio Chart</h2>
+
+<div class="tradingview-widget-container">
 <div id="tradingview_ratio"></div>
-
-<script src="https://s3.tradingview.com/tv.js"></script>
-
-<script>
-new TradingView.widget({
-container_id: "tradingview_ratio",
-width: "100%",
-height: 500,
-symbol: "TVC:GOLD/TVC:SILVER",
-interval: "D",
-timezone: "Etc/UTC",
-theme: "light",
-style: "1",
-locale: "en",
-enable_publishing: false,
-allow_symbol_change: false
-});
-</script>
-
 </div>
 
 </div>
 
+
 <script src="https://s3.tradingview.com/tv.js"></script>
 
 <script>
+
 new TradingView.widget({
-container_id: "tradingview_ratio",
-width: "100%",
-height: 500,
-symbol: "TVC:GOLD/TVC:SILVER",
-interval: "D",
-timezone: "Etc/UTC",
-theme: "light",
-style: "1",
-locale: "en",
-enable_publishing: false,
-allow_symbol_change: false
+  "container_id": "tradingview_ratio",
+  "width": "100%",
+  "height": 500,
+  "symbol": "TVC:GOLD/TVC:SILVER",
+  "interval": "D",
+  "timezone": "Etc/UTC",
+  "theme": "light",
+  "style": "1",
+  "locale": "en",
+  "toolbar_bg": "#f1f3f6",
+  "enable_publishing": false,
+  "allow_symbol_change": false
 });
+
 </script>
 
-<!-- ADD THIS -->
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-<!-- YOUR FILE -->
 <script src="script.js"></script>
 
 </body>
+
 </html>
