@@ -65,21 +65,30 @@ updateSentiment(ratio);
 function updateSignal(ratio){
 
 let signal="";
+let color="gray";
 
 if(ratio>80){
 signal="Silver Undervalued";
+color="green";
 }
 else if(ratio<60){
 signal="Silver Overvalued";
+color="red";
 }
 else{
 signal="Neutral Zone";
+color="orange";
 }
 
-updateElement("signal",signal);
+const el=document.getElementById("signal");
 
+if(el){
+el.innerText=signal;
+el.style.background=color;
+el.style.color="white";
 }
 
+}
 
 function updateStrategy(ratio){
 
@@ -150,3 +159,4 @@ ctx.fillText(ratio.toFixed(1),135,120);
 fetchRatio()
 
 setInterval(fetchRatio,60000)
+
