@@ -36,10 +36,26 @@ font-weight:bold;
 margin-top:40px;
 }
 
+.dashboard-row{
+display:flex;
+justify-content:center;
+gap:20px;
+flex-wrap:wrap;
+margin-top:40px;
+}
+
+.info-card{
+background:white;
+padding:20px;
+border-radius:12px;
+width:220px;
+box-shadow:0 6px 14px rgba(0,0,0,0.08);
+}
+
 .signalBox{
-font-size:20px;
+font-size:18px;
 font-weight:bold;
-padding:15px;
-border-radius:8px;
+padding:10px;
+border-radius:6px;
 display:inline-block;
 }
