@@ -2,14 +2,15 @@ async function fetchRatio(){
 
 try{
 
-const response = await fetch("https://data-asg.goldprice.org/dbXRates/USD");
+const res = await fetch(
+"https://fragrant-brook-82bb.alexkeerthi.workers.dev"
+);
 
-const data = await response.json();
+const data = await res.json();
 
-let gold = data.items[0].xauPrice;
-let silver = data.items[0].xagPrice;
-
-let ratio = gold / silver;
+let gold = data.gold;
+let silver = data.silver;
+let ratio = data.ratio;
 
 document.getElementById("goldPrice").innerText="$"+gold.toFixed(2);
 document.getElementById("silverPrice").innerText="$"+silver.toFixed(2);
@@ -134,4 +135,5 @@ ctx.fillText(ratio.toFixed(1),135,120);
 fetchRatio()
 
 setInterval(fetchRatio,60000)
+
 
