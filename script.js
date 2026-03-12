@@ -2,20 +2,18 @@ async function fetchRatio(){
 
 try{
 
-const response = await fetch("https://api.metals.live/v1/spot");
+const response = await fetch("https://data-asg.goldprice.org/dbXRates/USD");
 
 const data = await response.json();
 
-let gold = data.find(m => m.gold)?.gold;
-let silver = data.find(m => m.silver)?.silver;
-
-if(!gold || !silver){
-throw new Error("Metal prices missing");
-}
+let gold = data.items[0].xauPrice;
+let silver = data.items[0].xagPrice;
 
 let ratio = gold / silver;
 
-document.getElementById("ratio").innerText = ratio.toFixed(2);
+document.getElementById("goldPrice").innerText="$"+gold.toFixed(2);
+document.getElementById("silverPrice").innerText="$"+silver.toFixed(2);
+document.getElementById("ratio").innerText=ratio.toFixed(2);
 
 updateSignal(ratio);
 updateStrategy(ratio);
@@ -24,7 +22,7 @@ updateSentiment(ratio);
 
 }catch(error){
 
-console.error("Price fetch error:", error);
+console.error("Price fetch error:",error);
 
 document.getElementById("ratio").innerText="API Error";
 
@@ -136,3 +134,4 @@ ctx.fillText(ratio.toFixed(1),135,120);
 fetchRatio()
 
 setInterval(fetchRatio,60000)
+
