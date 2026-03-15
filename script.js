@@ -1,4 +1,4 @@
-let previousRatio = null;
+let previousRatio = localStorage.getItem("previousRatio");
 
 async function fetchRatio(){
 
@@ -30,29 +30,27 @@ let trendColor = "black";
 
 if(previousRatio !== null){
 
+previousRatio = parseFloat(previousRatio);
+
 if(ratio > previousRatio){
-trendSymbol = "▲ Rising";
+trendSymbol = " ▲";
 trendColor = "green";
 }
 else if(ratio < previousRatio){
-trendSymbol = "▼ Falling";
+trendSymbol = " ▼";
 trendColor = "red";
 }
 else{
-trendSymbol = "▬ No Change";
+trendSymbol = " ▬";
 trendColor = "gray";
 }
 
 }
 
-updateElement("ratio", ratio.toFixed(2));
+updateElement("ratio", ratio.toFixed(2) + trendSymbol);
+document.getElementById("ratio").style.color = trendColor;
 
-let trendEl = document.getElementById("ratioTrend");
-
-trendEl.innerText = trendSymbol;
-trendEl.style.color = trendColor;
-
-previousRatio = ratio;
+localStorage.setItem("previousRatio", ratio);
   
 /* UPDATE RATIO DISPLAY */
 
