@@ -38,8 +38,18 @@ else if(ratio < previousRatio){
 trendSymbol = " ▼";
 trendColor = "red";
 }
+else{
+trendSymbol = " ▬";
+trendColor = "gray";
+}
 
 }
+
+updateElement("ratio", ratio.toFixed(2) + trendSymbol);
+
+document.getElementById("ratio").style.color = trendColor;
+
+previousRatio = ratio;
 
 /* UPDATE RATIO DISPLAY */
 
