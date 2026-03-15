@@ -31,26 +31,29 @@ let trendColor = "black";
 if(previousRatio !== null){
 
 if(ratio > previousRatio){
-trendSymbol = " ▲";
+trendSymbol = "▲ Rising";
 trendColor = "green";
 }
 else if(ratio < previousRatio){
-trendSymbol = " ▼";
+trendSymbol = "▼ Falling";
 trendColor = "red";
 }
 else{
-trendSymbol = " ▬";
+trendSymbol = "▬ No Change";
 trendColor = "gray";
 }
 
 }
 
-updateElement("ratio", ratio.toFixed(2) + trendSymbol);
+updateElement("ratio", ratio.toFixed(2));
 
-document.getElementById("ratio").style.color = trendColor;
+let trendEl = document.getElementById("ratioTrend");
+
+trendEl.innerText = trendSymbol;
+trendEl.style.color = trendColor;
 
 previousRatio = ratio;
-
+  
 /* UPDATE RATIO DISPLAY */
 
 updateElement("ratio", ratio.toFixed(2) + trendSymbol);
