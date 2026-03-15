@@ -21,6 +21,8 @@ updateStrategy(ratio);
 updateGauge(ratio);
 updateSentiment(ratio);
 
+document.getElementById("lastUpdated").innerText = "Last updated: " + new Date().toLocaleTimeString();  
+
 }catch(error){
 
 console.error("Price fetch error:",error);
@@ -67,26 +69,22 @@ function updateSignal(ratio){
 let signal="";
 let color="gray";
 
-if(ratio>80){
+if(ratio > 80){
 signal="Silver Undervalued";
 color="green";
 }
-else if(ratio<60){
-signal="Silver Overvalued";
-color="red";
+else if(ratio < 60){
+signal="Gold Undervalued";
+color="goldenrod";
 }
 else{
 signal="Neutral Zone";
-color="orange";
+color="gray";
 }
 
-const el=document.getElementById("signal");
-
-if(el){
+let el=document.getElementById("signal");
 el.innerText=signal;
-el.style.background=color;
-el.style.color="white";
-}
+el.style.color=color;
 
 }
 
