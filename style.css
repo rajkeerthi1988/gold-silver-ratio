@@ -112,3 +112,8 @@ border:none;
 border-radius:6px;
 cursor:pointer;
 }
+
+#ratioTrend{
+font-weight:bold;
+margin-top:5px;
+}
