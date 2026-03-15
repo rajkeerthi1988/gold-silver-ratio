@@ -155,6 +155,38 @@ ctx.fillText(ratio.toFixed(1),135,120);
 
 }
 
+function calculatePerformance(){
+
+let start = parseFloat(document.getElementById("startRatio").value);
+let end = parseFloat(document.getElementById("endRatio").value);
+
+if(isNaN(start) || isNaN(end)){
+document.getElementById("result").innerText = "Please enter valid ratios";
+return;
+}
+
+let change = ((start - end) / start) * 100;
+
+if(end < start){
+
+document.getElementById("result").innerText =
+"Silver outperforms Gold by about " + change.toFixed(2) + "%";
+
+}
+else if(end > start){
+
+document.getElementById("result").innerText =
+"Gold outperforms Silver by about " + change.toFixed(2) + "%";
+
+}
+else{
+
+document.getElementById("result").innerText =
+"No relative performance change.";
+
+}
+
+}
 
 fetchRatio()
 
