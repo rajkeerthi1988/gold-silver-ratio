@@ -243,6 +243,30 @@ document.getElementById("result").innerText =
 
 }
 
+function updateRatioZone(ratio){
+
+let position = Math.min(Math.max(ratio,40),120);
+
+let percent = ((position-40)/80)*100;
+
+document.getElementById("ratioIndicator").style.left = percent + "%";
+
+let text="";
+
+if(ratio>80){
+text="Silver appears historically undervalued.";
+}
+else if(ratio<60){
+text="Gold appears historically undervalued.";
+}
+else{
+text="Ratio in neutral historical zone.";
+}
+
+document.getElementById("ratioZoneText").innerText=text;
+
+}
+
 const historyLabels = [
 "1980","1985","1990","1995","2000",
 "2005","2010","2015","2020","2025"
