@@ -18,19 +18,12 @@ let gold = data.gold;
 let silver = data.silver;
 let ratio = data.ratio;
 
+/* UPDATE PRICES */
+
 updateElement("goldPrice","$"+gold.toFixed(2));
 updateElement("silverPrice","$"+silver.toFixed(2));
-updateElement("ratio",ratio.toFixed(2));
 
-updateSignal(ratio);
-updateStrategy(ratio);
-updateGauge(ratio);
-updateSentiment(ratio);
-
-updateElement(
-"lastUpdated",
-"Last updated: " + new Date().toLocaleTimeString()
-);
+/* TREND INDICATOR */
 
 let trendSymbol = "";
 let trendColor = "black";
@@ -45,15 +38,33 @@ else if(ratio < previousRatio){
 trendSymbol = " ▼";
 trendColor = "red";
 }
+
 }
+
+/* UPDATE RATIO DISPLAY */
 
 updateElement("ratio", ratio.toFixed(2) + trendSymbol);
 
 document.getElementById("ratio").style.color = trendColor;
 
+/* STORE CURRENT RATIO */
+
 previousRatio = ratio;
 
-  
+/* UPDATE DASHBOARD */
+
+updateSignal(ratio);
+updateStrategy(ratio);
+updateGauge(ratio);
+updateSentiment(ratio);
+
+/* UPDATE TIME */
+
+updateElement(
+"lastUpdated",
+"Last updated: " + new Date().toLocaleTimeString()
+);
+
 }catch(error){
 
 console.error("Price fetch error:",error);
@@ -63,7 +74,6 @@ updateElement("ratio","API Error");
 }
 
 }
-
 
 function updateElement(id,value){
 
