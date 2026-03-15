@@ -32,6 +32,28 @@ updateElement(
 "Last updated: " + new Date().toLocaleTimeString()
 );
 
+let trendSymbol = "";
+let trendColor = "black";
+
+if(previousRatio !== null){
+
+if(ratio > previousRatio){
+trendSymbol = " ▲";
+trendColor = "green";
+}
+else if(ratio < previousRatio){
+trendSymbol = " ▼";
+trendColor = "red";
+}
+}
+
+updateElement("ratio", ratio.toFixed(2) + trendSymbol + " Rising");
+
+document.getElementById("ratio").style.color = trendColor;
+
+previousRatio = ratio;
+
+  
 }catch(error){
 
 console.error("Price fetch error:",error);
