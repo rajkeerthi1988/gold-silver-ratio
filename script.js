@@ -47,7 +47,7 @@ trendColor = "red";
 }
 }
 
-updateElement("ratio", ratio.toFixed(2) + trendSymbol + " Rising");
+updateElement("ratio", ratio.toFixed(2) + trendSymbol);
 
 document.getElementById("ratio").style.color = trendColor;
 
