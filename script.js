@@ -14,10 +14,15 @@ if(!data.gold || !data.silver || !data.ratio){
 throw new Error("Invalid API data");
 }
 
-let gold = data.gold;
-let silver = data.silver;
-let ratio = data.ratio;
+let gold = Number(data.gold);
+let silver = Number(data.silver);
+let ratio = Number(data.ratio);
 
+if(!gold || !silver){
+console.error("Invalid price data", data);
+return;
+}
+  
 /* UPDATE PRICES */
 
 updateElement("goldPrice","$" + gold.toFixed(2));
