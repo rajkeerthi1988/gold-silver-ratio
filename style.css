@@ -69,3 +69,19 @@ box-shadow:0 4px 12px rgba(0,0,0,0.1);
 .education h2{
 margin-top:0;
 }
+
+.faq{
+margin-top:40px;
+background:white;
+padding:30px;
+border-radius:10px;
+max-width:900px;
+margin-left:auto;
+margin-right:auto;
+text-align:left;
+box-shadow:0 4px 12px rgba(0,0,0,0.1);
+}
+
+.faq h3{
+margin-top:20px;
+}
