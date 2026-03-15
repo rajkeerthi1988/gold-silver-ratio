@@ -20,9 +20,10 @@ let ratio = data.ratio;
 
 /* UPDATE PRICES */
 
-updateElement("goldPrice","$"+gold.toFixed(2));
-updateElement("silverPrice","$"+silver.toFixed(2));
-
+updateElement("topGold","Gold: $" + gold.toFixed(2));
+updateElement("topSilver","Silver: $" + silver.toFixed(2));
+updateElement("topRatio","Ratio: " + ratio.toFixed(2));
+  
 /* TREND INDICATOR */
 
 let trendSymbol = "";
