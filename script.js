@@ -77,7 +77,8 @@ updateSignal(ratio);
 updateStrategy(ratio);
 updateGauge(ratio);
 updateSentiment(ratio);
-
+updateRatioZone(ratio);
+  
 /* UPDATE TIME */
 
 updateElement(
