@@ -234,6 +234,43 @@ document.getElementById("result").innerText =
 
 }
 
+const historyLabels = [
+"1980","1985","1990","1995","2000",
+"2005","2010","2015","2020","2025"
+];
+
+const historyData = [
+15,45,95,65,60,
+50,40,75,120,80
+];
+
+const ctx = document.getElementById("historyChart");
+
+new Chart(ctx,{
+type:"line",
+data:{
+labels:historyLabels,
+datasets:[{
+label:"Gold Silver Ratio",
+data:historyData,
+borderWidth:3,
+tension:0.3,
+pointRadius:4,
+fill:false
+}]
+},
+options:{
+responsive:true,
+plugins:{
+legend:{display:true}
+},
+scales:{
+y:{beginAtZero:false}
+}
+}
+});
+
+
 fetchRatio()
 
 setInterval(fetchRatio,60000)
