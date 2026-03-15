@@ -8,6 +8,10 @@ const res = await fetch(
 
 const data = await res.json();
 
+if(!data.gold || !data.silver || !data.ratio){
+throw new Error("Invalid API data");
+}
+
 let gold = data.gold;
 let silver = data.silver;
 let ratio = data.ratio;
@@ -21,7 +25,10 @@ updateStrategy(ratio);
 updateGauge(ratio);
 updateSentiment(ratio);
 
-document.getElementById("lastUpdated").innerText = "Last updated: " + new Date().toLocaleTimeString();  
+updateElement(
+"lastUpdated",
+"Last updated: " + new Date().toLocaleTimeString()
+);
 
 }catch(error){
 
@@ -36,10 +43,10 @@ updateElement("ratio","API Error");
 
 function updateElement(id,value){
 
-const el=document.getElementById(id);
+const el = document.getElementById(id);
 
 if(el){
-el.innerText=value;
+el.innerText = value;
 }
 
 }
