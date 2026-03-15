@@ -168,22 +168,18 @@ return;
 let change = ((start - end) / start) * 100;
 
 if(end < start){
-
 document.getElementById("result").innerText =
 "Silver outperforms Gold by about " + change.toFixed(2) + "%";
-
 }
-else if(end > start){
 
+else if(end > start){
 document.getElementById("result").innerText =
 "Gold outperforms Silver by about " + change.toFixed(2) + "%";
-
 }
-else{
 
+else{
 document.getElementById("result").innerText =
 "No relative performance change.";
-
 }
 
 }
