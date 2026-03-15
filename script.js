@@ -1,3 +1,5 @@
+let previousRatio = null;
+
 async function fetchRatio(){
 
 try{
