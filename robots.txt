@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://rajkeerthi1988.github.io/gold-silver-ratio/sitemap.xml
