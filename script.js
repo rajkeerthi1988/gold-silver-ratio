@@ -217,30 +217,33 @@ ctx.fillText(ratio.toFixed(1),135,120);
 
 function calculatePerformance(){
 
-let start = parseFloat(document.getElementById("startRatio").value);
-let end = parseFloat(document.getElementById("endRatio").value);
+let goldStart = parseFloat(document.getElementById("goldStart").value);
+let goldEnd = parseFloat(document.getElementById("goldEnd").value);
 
-if(isNaN(start) || isNaN(end)){
-document.getElementById("result").innerText = "Please enter valid ratios";
+let silverStart = parseFloat(document.getElementById("silverStart").value);
+let silverEnd = parseFloat(document.getElementById("silverEnd").value);
+
+if(isNaN(goldStart) || isNaN(goldEnd) || isNaN(silverStart) || isNaN(silverEnd)){
+document.getElementById("performanceResult").innerText = "Please enter valid values";
 return;
 }
 
-let change = ((start - end) / start) * 100;
+let goldReturn = ((goldEnd - goldStart) / goldStart) * 100;
+let silverReturn = ((silverEnd - silverStart) / silverStart) * 100;
 
-if(end < start){
-document.getElementById("result").innerText =
-"Silver outperforms Gold by about " + change.toFixed(2) + "%";
+let result = "";
+
+if(goldReturn > silverReturn){
+result = "Gold performed better (" + goldReturn.toFixed(2) + "% vs " + silverReturn.toFixed(2) + "%)";
 }
-
-else if(end > start){
-document.getElementById("result").innerText =
-"Gold outperforms Silver by about " + change.toFixed(2) + "%";
+else if(silverReturn > goldReturn){
+result = "Silver performed better (" + silverReturn.toFixed(2) + "% vs " + goldReturn.toFixed(2) + "%)";
 }
-
 else{
-document.getElementById("result").innerText =
-"No relative performance change.";
+result = "Both performed equally";
 }
+
+document.getElementById("performanceResult").innerText = result;
 
 }
 
