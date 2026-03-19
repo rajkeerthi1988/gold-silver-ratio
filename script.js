@@ -60,12 +60,7 @@ updateElement("ratio", ratio.toFixed(2) + trendSymbol);
 document.getElementById("ratio").style.color = trendColor;
 
 localStorage.setItem("previousRatio", ratio);
-  
-/* UPDATE RATIO DISPLAY */
-
-updateElement("ratio", ratio.toFixed(2) + trendSymbol);
-
-document.getElementById("ratio").style.color = trendColor;
+previousRatio = ratio;
 
 /* STORE CURRENT RATIO */
 
@@ -90,7 +85,9 @@ updateElement(
 
 console.error("Price fetch error:",error);
 
-updateElement("ratio","API Error");
+updateElement("ratio","⚠ API Error");
+updateElement("goldPrice","--");
+updateElement("silverPrice","--");
 
 }
 
@@ -210,7 +207,7 @@ ctx.strokeStyle="#FFD700";
 ctx.stroke();
 
 ctx.font="20px Arial";
-ctx.fillStyle="black";
+ctx.fillStyle="white";
 ctx.fillText(ratio.toFixed(1),135,120);
 
 }
@@ -253,7 +250,16 @@ let position = Math.min(Math.max(ratio,40),120);
 
 let percent = ((position-40)/80)*100;
 
-document.getElementById("ratioIndicator").style.left = percent + "%";
+const indicator = document.getElementById("ratioIndicator");
+const textEl = document.getElementById("ratioZoneText");
+
+if(indicator){
+indicator.style.left = percent + "%";
+}
+
+if(textEl){
+textEl.innerText = text;
+}
 
 let text="";
 
@@ -283,32 +289,47 @@ const historyData = [
 
 const ctx = document.getElementById("historyChart");
 
+if(ctx){
 new Chart(ctx,{
-type:"line",
-data:{
-labels:historyLabels,
-datasets:[{
-label:"Gold Silver Ratio",
-data:historyData,
-borderWidth:3,
-tension:0.3,
-pointRadius:4,
-fill:false
-}]
-},
-options:{
-responsive:true,
-plugins:{
-legend:{display:true}
-},
-scales:{
-y:{beginAtZero:false}
-}
-}
+  type:"line",
+  data:{
+    labels:historyLabels,
+    datasets:[{
+      label:"Gold Silver Ratio",
+      data:historyData,
+      borderWidth:3,
+      tension:0.3,
+      pointRadius:4,
+      fill:false
+    }]
+  },
+  options:{
+    responsive:true,
+    plugins:{ legend:{display:true} },
+    scales:{ y:{beginAtZero:false} }
+  }
 });
+}
 
 
 fetchRatio()
 
-setInterval(fetchRatio,60000)
+let isFetching = false;
+
+async function fetchRatio(){
+
+if(isFetching) return;
+isFetching = true;
+
+try{
+  setInterval(fetchRatio,60000)
+}
+catch(error){
+  console.error("Price fetch error:",error);
+}
+finally{
+  isFetching = false;
+}
+
+}
 
